@@ -1,0 +1,70 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "foundry-computer-use"
+version = "0.1.0"
+description = "A modular, semantic accessibility-first, cross-platform Computer Use engine for autonomous AI agents."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+    { name = "Azzouz Ismail" }
+]
+keywords = [
+    "computer-use",
+    "ai-agents",
+    "automation",
+    "accessibility",
+    "pyautogui",
+    "uiautomation",
+    "cross-platform",
+    "anti-bot"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Testing",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: MacOS",
+    "Operating System :: POSIX :: Linux"
+]
+requires-python = ">=3.10"
+dependencies = [
+    "pyautogui>=0.9.54",
+    "pyperclip>=1.8.2",
+    "Pillow>=10.0.0"
+]
+
+[project.optional-dependencies]
+windows = [
+    "uiautomation>=2.0.29",
+    "comtypes>=1.2.1",
+    "pywin32>=306"
+]
+macos = [
+    "pyobjc-framework-Quartz>=10.0",
+    "pyobjc-framework-ApplicationServices>=10.0"
+]
+linux = [
+    "python-xlib>=0.33"
+]
+dev = [
+    "pytest>=7.4.0",
+    "black>=23.7.0",
+    "flake8>=6.1.0"
+]
+
+[project.scripts]
+foundry-cu = "cu_suite.cli:main"
+cu-suite = "cu_suite.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["cu_suite*"]

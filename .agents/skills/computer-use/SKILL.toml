@@ -1,0 +1,8 @@
+id = "computer-use"
+name = "computer-use"
+category = "automation"
+tags = ["computer-use", "gui", "desktop", "browser", "automation", "pyautogui", "accessibility", "cross-platform"]
+phases = ["implement", "debug", "test"]
+priority = 90
+description = "Cross-platform desktop and browser automation skill using semantic accessibility trees (A11y), anti-bot human kinematics, layout-safe text injection, and visual fallback."
+allowed_tools = ["run_shell", "read_file", "write_file", "explain_media"]
