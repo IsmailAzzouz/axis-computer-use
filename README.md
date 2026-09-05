@@ -1,22 +1,42 @@
-# Foundry Computer Use (`foundry-computer-use`)
+<p align="center">
+  <img src="assets/header.svg" width="100%" alt="AXIS // Foundry Computer Use Engine">
+</p>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python Version](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
-[![Test Suite](https://img.shields.io/badge/tests-20%2F20%20passing-brightgreen.svg)]()
-[![Platform Support](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)]()
-[![Built by Foundry](https://img.shields.io/badge/built%20by-Foundry%20Agent-orange.svg)]()
+<p align="center">
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
+  <a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3.10%2B-blue.svg" alt="Python 3.10+"></a>
+  <a href="#"><img src="https://img.shields.io/badge/tests-20%2F20%20passing-brightgreen.svg" alt="Test Suite"></a>
+  <a href="#"><img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg" alt="Platform Support"></a>
+  <a href="#"><img src="https://img.shields.io/badge/system-Monarch%20%2F%20Foundry-white.svg" alt="Monarch System"></a>
+</p>
 
-**Foundry Computer Use** (`cu_suite`) is a modular, high-reliability, semantic accessibility-first Computer Use add-on designed for autonomous AI agents and programmatic desktop automation.
-
-Rather than relying on fragile full-screen screenshots, coordinate guessing, or slow vision model round-trips, **Foundry Computer Use** interfaces directly with operating system accessibility trees, couples interactions with humanized anti-bot motor kinematics, protects against international keyboard layout corruption, and provides a targeted visual fallback when needed.
+<p align="center">
+  <strong>AXIS</strong> is a modular, high-reliability, semantic accessibility-first Computer Use engine designed for autonomous AI agents.<br>
+  <em>"Action is the Evidence."</em>
+</p>
 
 ---
 
-## ⚡ Why Foundry Computer Use?
+## ⚡ The Philosophy
 
-| Challenge in Vision-Only Computer Use | Foundry Computer Use Solution |
+> **Monarch:** *Sovereignty is Paramount.*  
+> **Foundry:** *Verification is the Contract.*  
+> **Axis:** *Action is the Evidence.*
+
+Most Computer Use solutions treat desktop interaction like video analysis: they capture full-screen raster images, pass multi-megabyte payloads to multimodal vision models, and make probabilistic guesses at pixel coordinates. When tested against real-world enterprise environments, international keyboard layouts, or dynamic interfaces, this model breaks down through high token latency, scan-code corruption, and anti-bot trips.
+
+**AXIS** inverts the paradigm:
+* **The System belongs to the User.** Automation should be sovereign, transparent, and reproducible without closed cloud dependencies.
+* **The Interface is the Territory.** Rather than guessing pixels from a distance, AXIS queries the native operating system Accessibility Tree (UIA v3, AXUIElement, AT-SPI2).
+* **Action Leaves Proof.** Real actions produce deterministic state transitions. Every interaction is grounded in verifiable DOM and OS handles.
+
+---
+
+## 🛡️ Core Capabilities
+
+| Vision-Only Fragility | AXIS Engineering Solution |
 | :--- | :--- |
-| **Token Bloat & Latency** (Sending 4K/1080p images on every turn) | **Semantic A11y Tree:** Traverses native OS accessibility trees, pruning non-interactive noise into a token-efficient indexed schema (`[1]`, `[2]`, `[3]`). |
+| **Token Bloat & Latency** (Sending 4K/1080p images on every step) | **Semantic A11y Tree:** Traverses native OS accessibility trees, pruning non-interactive noise into a token-efficient indexed schema (`[1]`, `[2]`, `[3]`). |
 | **Chromium Nesting Chasm** (Browsers hiding web DOM behind 300+ chrome buttons) | **RootWebArea Fast-Path:** Automatically detects and pierces through browser chrome straight into the active web page DOM on Chrome, Brave, and Edge. |
 | **Bot Detection & CAPTCHA Failures** (Instant 0ms cursor teleportation) | **Humanized Kinematics:** Smooth cubic Bézier trajectories, minimum-jerk acceleration curves, micro-tremor jitter, and realistic pre-click dwell times. |
 | **Keyboard Layout Corruption** (French/Belgian AZERTY typing `:` as `Shift+/`) | **Layout-Safe Paste:** Defaults to system clipboard injection, with automatic virtual keystroke fallback when forms block paste (`onpaste="return false;"`). |
@@ -29,7 +49,9 @@ Rather than relying on fragile full-screen screenshots, coordinate guessing, or 
 
 ```text
 foundry-computer-use/
-├── cu_suite/                   # Core Python Package
+├── assets/
+│   └── header.svg              # Monarch/Foundry design system SVG header
+├── cu_suite/                   # Core Python Package (AXIS Engine)
 │   ├── models.py               # Normalized data structures (WindowInfo, UIElement, BoundingBox)
 │   ├── interfaces.py           # Abstract Base Classes (IWindowManager, ITreeInspector, etc.)
 │   ├── agent_facade.py         # High-level ComputerUseSuite orchestrator
@@ -65,7 +87,7 @@ cd foundry-computer-use
 # Install in editable mode
 pip install -e .
 
-# OS-Specific Extras:
+# Platform-specific extras:
 pip install -e .[windows]   # Windows (uiautomation, pywin32, comtypes)
 pip install -e .[macos]     # macOS (pyobjc Quartz & ApplicationServices)
 pip install -e .[linux]     # Linux (python-xlib, wmctrl, at-spi2)
@@ -76,17 +98,17 @@ pip install -e .[linux]     # Linux (python-xlib, wmctrl, at-spi2)
 ```python
 from cu_suite import ComputerUseSuite
 
-# Initialize suite with human-like kinematics
+# Initialize suite with anti-bot kinematics enabled
 suite = ComputerUseSuite(human_mode=True)
 
-# 1. Discover and focus an application
+# 1. Discover and focus an application window
 win = suite.focus_window("Brave")
-print(f"Focused: {win.title}")
+print(f"Focused: {win.title} (HWND: {win.handle})")
 
-# 2. Navigate browser (cross-platform hotkeys)
+# 2. Navigate browser using cross-platform key translation
 suite.navigate_browser("https://home.azzouz.be")
 
-# 3. Inspect UI tree (pierces directly into web DOM)
+# 3. Inspect active UI elements (pierces directly into web DOM)
 print(suite.inspect())
 
 # 4. Click an element by its indexed ID
