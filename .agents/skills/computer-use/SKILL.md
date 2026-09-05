@@ -1,11 +1,13 @@
 ---
 name: computer-use
-description: Cross-platform desktop and browser automation skill using semantic accessibility trees (A11y), anti-bot human kinematics, layout-safe text injection, and visual fallback.
+description: Cross-platform desktop and browser automation skill using AXIS (axis-computer-use), featuring semantic accessibility trees (A11y), anti-bot human kinematics, layout-safe text injection, and visual fallback.
 ---
 
-# Computer Use Skill Guide
+# AXIS Computer Use Skill Guide
 
-This skill guides autonomous agents in performing desktop and browser automation reliably across Windows, macOS, and Linux using the `cu_suite` framework.
+This skill guides autonomous agents in performing desktop and browser automation reliably across Windows, macOS, and Linux using the **AXIS** (`axis-computer-use` / `cu_suite`) framework.
+
+> *"Action is the Evidence."*
 
 ---
 

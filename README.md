@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/header.svg" width="100%" alt="AXIS // Foundry Computer Use Engine">
+  <img src="assets/header.svg" width="100%" alt="AXIS // Sovereign Computer Use Engine">
 </p>
 
 <p align="center">
@@ -48,7 +48,7 @@ Most Computer Use solutions treat desktop interaction like video analysis: they 
 ## 📁 Repository Architecture
 
 ```text
-foundry-computer-use/
+axis-computer-use/
 ├── assets/
 │   └── header.svg              # Monarch/Foundry design system SVG header
 ├── cu_suite/                   # Core Python Package (AXIS Engine)
@@ -66,7 +66,7 @@ foundry-computer-use/
 │   ├── API_REFERENCE.md        # Comprehensive technical API documentation
 │   └── USAGE_GUIDE.md          # Step-by-step developer manual & workflows
 ├── tests/                      # Full unit and integration test suite (20 tests)
-├── .agents/skills/             # Pre-packaged Foundry Agent Skill
+├── .agents/skills/             # Pre-packaged Agent Skill
 ├── pyproject.toml              # Standard PEP 517/621 packaging metadata
 ├── ROADMAP.md                  # Development phases & multi-OS testing pipeline
 ├── CONTRIBUTING.md             # Guidelines for open-source contributors
@@ -81,8 +81,8 @@ foundry-computer-use/
 
 ```bash
 # Clone the repository
-git clone https://github.com/IsmailAzzouz/foundry-computer-use.git
-cd foundry-computer-use
+git clone https://github.com/IsmailAzzouz/axis-computer-use.git
+cd axis-computer-use
 
 # Install in editable mode
 pip install -e .
@@ -124,13 +124,13 @@ suite.capture_snapshot("result.png")
 
 ```bash
 # List all desktop application windows
-python -m cu_suite.cli list-windows
+axis list-windows
 
 # Inspect the accessibility tree of a window
-python -m cu_suite.cli inspect --window "Brave"
+axis inspect --window "Brave"
 
 # Navigate an active browser window
-python -m cu_suite.cli navigate "https://example.com" --window "Brave"
+axis navigate "https://example.com" --window "Brave"
 ```
 
 ---
@@ -161,12 +161,12 @@ See [ROADMAP.md](ROADMAP.md) for full details.
 
 ---
 
-## 🏛️ Built by Foundry & Azzouz Ismail
+## 🏛️ Co-Authored by Azzouz Ismail & Foundry
 
 > *"Verification is the Contract."*  
 > — Monarch System Principles
 
-This repository was developed entirely by **Foundry**, an autonomous sovereign engineering agent created by **Azzouz Ismail** ([Monarch](https://github.com/IsmailAzzouz)).
+This repository was conceptualized and developed jointly by **Foundry** (an autonomous sovereign engineering agent) and **Azzouz Ismail** ([Monarch](https://github.com/IsmailAzzouz)).
 
 ### About Foundry
 Foundry is not a chatbot with repository access—it is an engineering operator. Built on the sovereign Monarch architecture, Foundry is designed to enter live codebases, inspect real state through empirical evidence, make precise and coherent interventions, and prove that every change works against project checks before claiming success.
@@ -179,4 +179,4 @@ Foundry operates under a strict principle:
 ## 📄 License
 
 This project is open-source software licensed under the [MIT License](LICENSE).  
-Copyright (c) 2026 Azzouz Ismail.
+Copyright (c) 2026 Azzouz Ismail & Foundry Agent.

@@ -1,6 +1,8 @@
-# Computer Use Suite (`cu_suite`) API Reference
+# AXIS Computer Use Suite (`axis-computer-use` / `cu_suite`) API Reference
 
-The Computer Use Suite (`cu_suite`) provides a cross-platform, semantic accessibility-first desktop automation framework designed for autonomous engineering agents and programmatic desktop interaction.
+**AXIS** (`cu_suite` / `axis-computer-use`) provides a sovereign, cross-platform, semantic accessibility-first desktop automation framework designed for autonomous AI agents and programmatic desktop interaction.
+
+> *"Action is the Evidence."*
 
 ---
 

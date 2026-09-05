@@ -1,27 +1,39 @@
-# Computer Use Suite (`cu_suite`) Practical Usage Guide
+# AXIS Computer Use Suite (`axis-computer-use` / `cu_suite`) Practical Usage Guide
 
-This guide provides practical workflows, code snippets, and best practices for automating desktop applications and web browsers across platforms using `cu_suite`.
+This guide provides practical workflows, code snippets, and best practices for automating desktop applications and web browsers across platforms using **AXIS** (`axis-computer-use` / `cu_suite`).
+
+> *"Action is the Evidence."*
 
 ---
 
 ## 1. Installation & Environment Setup
 
-### Windows
+### Install from GitHub
 ```bash
-python -m pip install --user uiautomation comtypes pyautogui pyperclip pillow
+# Clone the repository
+git clone https://github.com/IsmailAzzouz/axis-computer-use.git
+cd axis-computer-use
+
+# Install core package in editable mode
+pip install -e .
+```
+
+### Windows Prerequisites
+```bash
+pip install -e .[windows]
 ```
 *Note: Ensure your Python terminal is running in the interactive desktop session (Session 1). If controlling applications running with Administrator privileges, launch the terminal as Administrator to satisfy Windows UIPI (User Interface Privilege Isolation).*
 
-### macOS
+### macOS Prerequisites
 ```bash
-pip install pyobjc-framework-Quartz pyobjc-framework-ApplicationServices pyautogui pyperclip pillow
+pip install -e .[macos]
 ```
 *Note: Ensure Terminal / Python has been granted `Accessibility` and `Screen Recording` permissions in **System Settings → Privacy & Security**.*
 
-### Linux
+### Linux Prerequisites
 ```bash
 sudo apt-get install wmctrl xdotool xclip
-pip install pyatspi pyautogui pyperclip pillow python-xlib
+pip install -e .[linux]
 ```
 
 ---
@@ -31,7 +43,7 @@ pip install pyatspi pyautogui pyperclip pillow python-xlib
 ```python
 from cu_suite import ComputerUseSuite
 
-# Initialize suite with human-like kinematics enabled
+# Initialize AXIS with human-like kinematics enabled
 suite = ComputerUseSuite(human_mode=True)
 
 # 1. Discover and focus an application window
@@ -211,15 +223,15 @@ print("Linux window manager:", type(suite_linux.wm))
 
 ## 4. Standalone CLI Usage
 
-The suite includes an interactive command-line interface:
+The suite includes an interactive command-line interface (`axis` or `foundry-cu`):
 
 ```bash
 # List all desktop windows
-python -m cu_suite.cli list-windows
+axis list-windows
 
 # Inspect UI tree of a specific window
-python -m cu_suite.cli inspect --window "Brave"
+axis inspect --window "Brave"
 
 # Navigate a browser window to a URL
-python -m cu_suite.cli navigate "https://home.azzouz.be" --window "Brave"
+axis navigate "https://home.azzouz.be" --window "Brave"
 ```

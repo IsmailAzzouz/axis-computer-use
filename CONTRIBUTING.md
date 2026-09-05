@@ -1,4 +1,4 @@
-# Contributing to Foundry Computer Use
+# Contributing to AXIS Computer Use
 
 We welcome contributions from developers, autonomous agents, and systems engineers.
 
@@ -7,8 +7,9 @@ We welcome contributions from developers, autonomous agents, and systems enginee
 ## Code of Conduct & Principles
 
 1. **Verification is the Contract:** Every feature, fix, or optimization must be backed by unit or integration tests.
-2. **Minimal Disruption:** Keep changes surgical. Preserve existing architecture and interfaces.
-3. **Evidence > Speculation:** Benchmark and verify against live operating system applications.
+2. **Action is the Evidence:** Concrete desktop and DOM state transitions supersede assumptions.
+3. **Minimal Disruption:** Keep changes surgical. Preserve existing architecture and interfaces.
+4. **Evidence > Speculation:** Benchmark and verify against live operating system applications.
 
 ---
 
@@ -16,8 +17,8 @@ We welcome contributions from developers, autonomous agents, and systems enginee
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/IsmailAzzouz/foundry-computer-use.git
-   cd foundry-computer-use
+   git clone https://github.com/IsmailAzzouz/axis-computer-use.git
+   cd axis-computer-use
    ```
 
 2. **Create a virtual environment:**

@@ -3,13 +3,14 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "foundry-computer-use"
+name = "axis-computer-use"
 version = "0.1.0"
 description = "A modular, semantic accessibility-first, cross-platform Computer Use engine for autonomous AI agents."
 readme = "README.md"
 license = { text = "MIT" }
 authors = [
-    { name = "Azzouz Ismail" }
+    { name = "Azzouz Ismail" },
+    { name = "Foundry" }
 ]
 keywords = [
     "computer-use",
@@ -62,8 +63,14 @@ dev = [
 ]
 
 [project.scripts]
-foundry-cu = "cu_suite.cli:main"
+axis = "cu_suite.cli:main"
+axis-cu = "cu_suite.cli:main"
 cu-suite = "cu_suite.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/IsmailAzzouz/axis-computer-use"
+Repository = "https://github.com/IsmailAzzouz/axis-computer-use"
+Documentation = "https://github.com/IsmailAzzouz/axis-computer-use/tree/master/docs"
 
 [tool.setuptools.packages.find]
 where = ["."]

@@ -73,9 +73,9 @@
 
   <!-- Header Metadata Strip -->
   <g>
-    <text x="48" y="52" class="mono-label">SYSTEM // FOUNDRY</text>
-    <text x="240" y="52" class="mono-dim">SPEC: PAL-A11Y-V1</text>
-    <text x="600" y="52" text-anchor="middle" class="mono-dim">SYS_REF: 0x4D4F4E41524348</text>
+    <text x="48" y="52" class="mono-label">SYSTEM // AXIS</text>
+    <text x="210" y="52" class="mono-dim">SPEC: PAL-A11Y-V1</text>
+    <text x="600" y="52" text-anchor="middle" class="mono-dim">SYS_REF: 0x415849532D4355</text>
     <text x="1152" y="52" text-anchor="end" class="mono-label">VERIFICATION // PARAMOUNT</text>
     <line x1="48" y1="64" x2="1152" y2="64" stroke="#1c1c1c" stroke-width="1" />
   </g>
@@ -102,7 +102,7 @@
 
   <!-- Project Name & Subtitle -->
   <text x="600" y="200" text-anchor="middle" class="brand-title">A X I S</text>
-  <text x="600" y="222" text-anchor="middle" class="brand-sub">FOUNDRY COMPUTER USE ENGINE</text>
+  <text x="600" y="222" text-anchor="middle" class="brand-sub">SOVEREIGN COMPUTER USE ENGINE</text>
 
   <!-- Project Motto / Catchphrase Box -->
   <g transform="translate(600, 252)">

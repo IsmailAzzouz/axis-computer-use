@@ -1,6 +1,6 @@
-# Foundry Computer Use Roadmap
+# AXIS Computer Use Roadmap
 
-This document outlines the architectural milestones, platform testing goals, and feature pipeline for **Foundry Computer Use** (`cu_suite`).
+This document outlines the architectural milestones, platform testing goals, and feature pipeline for **AXIS** (`axis-computer-use` / `cu_suite`).
 
 ---
 
