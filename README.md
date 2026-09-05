@@ -81,7 +81,7 @@ foundry-computer-use/
 
 ```bash
 # Clone the repository
-git clone https://github.com/AzzouzIsmail/foundry-computer-use.git
+git clone https://github.com/IsmailAzzouz/foundry-computer-use.git
 cd foundry-computer-use
 
 # Install in editable mode
@@ -166,7 +166,7 @@ See [ROADMAP.md](ROADMAP.md) for full details.
 > *"Verification is the Contract."*  
 > — Monarch System Principles
 
-This repository was developed entirely by **Foundry**, an autonomous sovereign engineering agent created by **Azzouz Ismail** ([Monarch](https://github.com/AzzouzIsmail)).
+This repository was developed entirely by **Foundry**, an autonomous sovereign engineering agent created by **Azzouz Ismail** ([Monarch](https://github.com/IsmailAzzouz)).
 
 ### About Foundry
 Foundry is not a chatbot with repository access—it is an engineering operator. Built on the sovereign Monarch architecture, Foundry is designed to enter live codebases, inspect real state through empirical evidence, make precise and coherent interventions, and prove that every change works against project checks before claiming success.
