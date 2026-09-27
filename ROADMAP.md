@@ -1,60 +1,34 @@
-# AXIS Computer Use Roadmap
+# AXIS roadmap
 
-This document outlines the architectural milestones, platform testing goals, and feature pipeline for **AXIS** (`axis-computer-use` / `cu_suite`).
+AXIS is distributed as **0.1.0 alpha** with API contract **2.0**. The public
+surface is V2 only. Current availability does not imply native qualification.
 
----
+## Available in the alpha
 
-## 🎯 Phase 1: Core Engine & Windows Hardening (✅ Completed)
-- [x] **Semantic Accessibility Engine (A11y):** Native Windows UI Automation v3 inspection with interactive control pruning (`[1]`, `[2]`, `[3]`).
-- [x] **Chromium Web DOM Piercing:** Automated `AutomationId="RootWebArea"` fast-pathing to bypass 300+ native browser chrome buttons.
-- [x] **Humanized Anti-Bot Kinematics:** Curved cubic Bézier mouse paths, minimum-jerk acceleration/deceleration, micro-tremor noise, and pre-click hover dwell times.
-- [x] **International Keyboard Safety:** Layout-agnostic clipboard pasting (`Ctrl+V`) to defeat AZERTY/QWERTZ scan-code distortion.
-- [x] **Anti-Paste Fallback:** Automatic character-by-character virtual typing fallback when forms enforce `onpaste="return false;"`.
-- [x] **Browser Password Autofill:** Synthetic arrow-key dropdown navigation and submission for floating browser credential popups.
-- [x] **Targeted Visual Fallback:** Bounded window screenshots with SHA-256 perceptual diff change detection.
-- [x] **Platform Abstraction Layer (PAL):** Abstract Base Classes (`IWindowManager`, `ITreeInspector`, `IInputController`, `IVisualFallback`) with runtime factory dispatch.
+- Six MCP tools: `axis.help`, `axis.targets`, `axis.observe`, `axis.run`,
+  `axis.job`, and `axis.capture`.
+- A resident Windows host with explicit application/target permissions, a
+  loopback broker, job recovery, and a Python SDK.
+- Ordered plans, semantic observations, postconditions, and explicit reporting
+  of unverified or uncertain effects.
+- Windows accessibility, input, clipboard, OCR, and capture paths, subject to
+  the capability declarations of the running host.
 
----
+## Qualification and delivery work
 
-## 🚀 Phase 2: Native Hardware Testing & Multi-OS Validation (🟡 In Progress)
-- [ ] **macOS Physical Device Testing:**
-  - [ ] Validate `pyobjc-framework-Quartz` window bounds under macOS Retina scaling.
-  - [ ] Validate `AXUIElement` accessibility traversal across native macOS apps (Safari, Finder, Preview).
-  - [ ] Test macOS TCC privacy dialog handling (`Accessibility` & `Screen Recording` permissions).
-  - [ ] Verify `Command` key hotkey translation across macOS keyboard layouts.
-- [ ] **Linux Hardware & Desktop Environment Testing:**
-  - [ ] Verify `AT-SPI2` D-Bus accessibility tree walking on GNOME and KDE desktops.
-  - [ ] Validate `wmctrl` / `xdotool` on X11 display servers.
-  - [ ] Test Wayland native support using `xdg-desktop-portal` (`org.freedesktop.portal.RemoteDesktop`) and `/dev/uinput` (`ydotool`).
-  - [ ] Implement `wl-copy` / `wl-paste` clipboard integration under pure Wayland sessions.
+- Run the current native fixture corpus repeatedly, including interruption,
+  input cleanup, and resource/endurance scenarios.
+- Complete broader Excel workflows, including range selection, locale cases,
+  save/reopen verification, and repeated trials.
+- Complete the Edge workflow corpus and repeated native qualification.
+- Evaluate actual model usability with declared models, settings, budgets, tool
+  calls, images, and token measurements.
+- Establish supported platform scope. macOS/Linux adapters are not qualified
+  for this alpha.
+- Reassess release certification after the required native and model evidence is
+  complete.
 
----
-
-## ⚡ Phase 3: CDP & Browser Extension Bridge (🔵 Planned)
-- [ ] **Native Chrome DevTools Protocol (CDP) Adapter:**
-  - [ ] Direct WebSocket connection to Chromium browsers running with `--remote-debugging-port`.
-  - [ ] Sub-millisecond DOM tree serialization without traversing OS window handle hierarchies.
-  - [ ] Direct JavaScript evaluation (`Runtime.evaluate`) for programmatic form fills and button clicks.
-- [ ] **Companion Browser Extension:**
-  - [ ] Lightweight unpacked extension to bypass browser security sandbox restrictions for agent interactions.
-  - [ ] Bidirectional event streaming for page navigation, network idle, and DOM mutations.
-
----
-
-## 🧠 Phase 4: Dynamic Event Streams & Game Solvers (🔵 Planned)
-- [ ] **Web Audio API Event Interception:**
-  - [ ] Passive capture of synthesized oscillator frequencies (e.g. Simon-Says memory puzzles, audio CAPTCHAs).
-- [ ] **Dynamic Mutation Observer:**
-  - [ ] Real-time CSS and attribute change listener to detect fast visual flashes without high-frequency screenshot polling.
-- [ ] **60 FPS Video / Canvas Pipeline:**
-  - [ ] Direct GPU / Direct3D / Metal frame grabber for non-accessible canvas and OpenGL/Vulkan game surfaces.
-
----
-
-## 🌐 Phase 5: Agent Ecosystem & MCP Tool Packaging (🔵 Planned)
-- [ ] **Official Model Context Protocol (MCP) Server:**
-  - [ ] Expose `cu_suite` tools (`inspect_screen`, `click_element_id`, `type_text`, `navigate_url`) via stdio/SSE MCP.
-- [ ] **LangChain / AutoGen / CrewAI Connectors:**
-  - [ ] Pre-packaged toolkits for major autonomous agent orchestration frameworks.
-- [ ] **Multi-Monitor Coordinate Normalizer:**
-  - [ ] Seamless virtual desktop coordinate translation across mixed-DPI multi-monitor configurations.
+The project is not currently release-certified. See the
+[qualification record](docs/AXIS_V2_QUALIFICATION.md) for evidence definitions,
+current gaps, and limits; see the [API reference](docs/API_REFERENCE.md) for the
+public contract.

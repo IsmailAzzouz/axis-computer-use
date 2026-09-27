@@ -1,13 +1,14 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=77.0", "packaging>=24.2"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "axis-computer-use"
 version = "0.1.0"
-description = "A modular, semantic accessibility-first, cross-platform Computer Use engine for autonomous AI agents."
+description = "Windows-first, accessibility-first computer use with bounded plans and a portable platform interface."
 readme = "README.md"
-license = { text = "MIT" }
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [
     { name = "Azzouz Ismail" },
     { name = "Foundry" }
@@ -17,29 +18,23 @@ keywords = [
     "ai-agents",
     "automation",
     "accessibility",
-    "pyautogui",
     "uiautomation",
     "cross-platform",
-    "anti-bot"
+    "desktop-automation"
 ]
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Software Development :: Testing",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
-    "Operating System :: Microsoft :: Windows",
-    "Operating System :: MacOS",
-    "Operating System :: POSIX :: Linux"
+    "Operating System :: Microsoft :: Windows"
 ]
 requires-python = ">=3.10"
 dependencies = [
-    "pyautogui>=0.9.54",
-    "pyperclip>=1.8.2",
     "Pillow>=10.0.0"
 ]
 
@@ -49,15 +44,11 @@ windows = [
     "comtypes>=1.2.1",
     "pywin32>=306"
 ]
-macos = [
-    "pyobjc-framework-Quartz>=10.0",
-    "pyobjc-framework-ApplicationServices>=10.0"
-]
-linux = [
-    "python-xlib>=0.33"
-]
 dev = [
     "pytest>=7.4.0",
+    "jsonschema>=4.18",
+    "build>=1.2",
+    "twine>=5.0",
     "black>=23.7.0",
     "flake8>=6.1.0"
 ]
@@ -66,6 +57,7 @@ dev = [
 axis = "cu_suite.cli:main"
 axis-cu = "cu_suite.cli:main"
 cu-suite = "cu_suite.cli:main"
+axis-mcp = "cu_suite.mcp.server:main"
 
 [project.urls]
 Homepage = "https://github.com/IsmailAzzouz/axis-computer-use"
@@ -75,3 +67,11 @@ Documentation = "https://github.com/IsmailAzzouz/axis-computer-use/tree/master/d
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["cu_suite*"]
+namespaces = false
+
+[tool.setuptools.package-data]
+"cu_suite.v2.platforms" = ["*.ps1"]
+
+[tool.pytest.ini_options]
+# Generated native traces/profiles and protected scratch directories are not tests.
+testpaths = ["tests", "testbench"]

@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AXIS training receipt</title>
+  <style>
+    :root{font:15px/1.6 system-ui,sans-serif;color:#172b3a;background:#f4f8f7;color-scheme:light}body{margin:0;padding:28px}main{max-width:480px;margin:auto;background:white;border:1px solid #dbe7e2;border-radius:12px;padding:25px}h1{font-size:23px;margin:0 0 12px}p{color:#5c747e;margin:0 0 18px}button{font:inherit;font-weight:600;background:#0e776e;color:#fff;border:0;border-radius:7px;min-height:44px;padding:10px 16px;cursor:pointer}button:focus-visible{outline:3px solid #26a99a;outline-offset:3px}button:disabled{opacity:.55;cursor:default}#popup-status{font-size:13px;margin:16px 0 0}
+  </style>
+  <script type="module" src="/assets/training-popup.js"></script>
+</head>
+<body>
+  <main>
+    <h1>Delivery receipt</h1>
+    <p>You opened a separate browser window. Acknowledge receipt here to report completion to the training page.</p>
+    <button id="training-popup-ack" type="button">Acknowledge receipt</button>
+    <p id="popup-status" role="status">Waiting for acknowledgement.</p>
+  </main>
+</body>
+</html>

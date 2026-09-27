@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light">
+<title>AXIS Training Ground</title><link rel="icon" href="data:,"><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/captcha-training.css"><link rel="stylesheet" href="css/browser-training.css"><script type="module" src="js/app.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to workspace</a>
+<div class="app-shell">
+<aside class="sidebar">
+<a class="brand" href="#captchas"><span class="brand-mark">A</span><span>AXIS<small>Training ground</small></span></a>
+<p class="nav-caption">TRAINING GROUND</p>
+<nav aria-label="Training areas">
+<button data-view="captchas" aria-current="page"><span>01</span> CAPTCHAs</button>
+<button data-view="browser"><span>02</span> Browser & desktop</button>
+<button data-view="customers"><span>03</span> Customers</button>
+<button data-view="tickets"><span>04</span> Support board</button>
+<button data-view="documents"><span>05</span> Documents</button>
+<button data-view="approvals"><span>06</span> Approvals</button>
+<button data-view="results"><span>07</span> Run results</button>
+</nav>
+<div class="sidebar-foot"><span class="environment-dot"></span> Local sandbox<p>Computer & browser use.<br>Practice, retry, evaluate.</p></div>
+</aside>
+<div class="workspace">
+<header class="topbar"><div><span class="breadcrumb">Training ground / </span><span id="breadcrumb-current">Customers</span></div><div class="topbar-right"><span id="connection-status">Connecting…</span><button id="reset-run" class="button secondary small" disabled>Reset run</button><span class="avatar" aria-label="Local operator">LO</span></div></header>
+<main id="main" tabindex="-1">
+<div id="startup-error" class="notice error" role="alert" hidden><strong>The application server is unavailable.</strong><p>Start the server with <code>python testbench/server.py</code>, then open <a href="http://127.0.0.1:8766/">the training ground on port 8766</a>.</p><button id="retry-connection" class="button secondary">Retry connection</button></div>
+<div class="page-heading"><div><p class="eyebrow">AXIS TEST ENVIRONMENT</p><h1 id="page-title">Customers</h1><p id="page-description">Manage accounts, find a customer, and save their details.</p></div><span id="run-progress" class="progress-pill">0 / 13 exercises complete</span></div>
+<section class="task-card" aria-labelledby="task-title"><span class="task-number" id="task-number">01</span><div><p class="eyebrow">YOUR ASSIGNMENT</p><h2 id="task-title">Update Maya’s account</h2><p id="task-description">Find Maya Chen at Northstar Labs. Change her email to maya.chen+ops@example.test and upgrade her plan to Team.</p></div><span class="task-state" id="task-state">Not completed</span></section>
+<section id="view-captchas" class="view" aria-label="CAPTCHA training">
+<div class="section-bar"><p class="muted">Local visual challenges are available offline. The provider widget uses the real Cloudflare service.</p><button id="reset-captchas" class="button secondary small">Reset CAPTCHA practice</button></div>
+<div id="captcha-training"></div><div id="turnstile-training"></div>
+</section>
+<section id="view-browser" class="view" aria-label="Browser and desktop training" hidden>
+<div class="section-bar"><p class="muted">Use the real browser and system controls. Permissions and window focus are part of the exercise.</p><button id="reset-browser-training" class="button secondary small">Reset browser drills</button></div>
+<div id="browser-training"></div>
+</section>
+<section id="view-customers" class="view" aria-label="Customer management" hidden>
+<div class="panel"><div class="panel-toolbar"><div><h2>Customer directory <span id="customer-count" class="count">0</span></h2><p class="muted">Accounts across your workspace</p></div><button id="add-customer" class="button" disabled>Add customer</button></div>
+<div class="filters"><label class="search-field">Search customers<input id="customer-search" type="search" placeholder="Search name, company, or email" autocomplete="off"></label><label>Plan<select id="plan-filter"><option value="">All plans</option><option>Starter</option><option>Team</option><option>Business</option></select></label></div>
+<div class="table-scroll"><table><caption class="sr-only">Customer accounts</caption><thead><tr><th scope="col" aria-sort="ascending"><button id="sort-name">Customer ↕</button></th><th scope="col">Company</th><th scope="col">Plan</th><th scope="col">Status</th><th scope="col"><span class="sr-only">Actions</span></th></tr></thead><tbody id="customer-rows"></tbody></table></div>
+<div class="table-footer"><span id="customer-page-info" role="status">Loading customers…</span><div class="button-group"><button id="previous-page" class="button secondary small" disabled>Previous</button><button id="next-page" class="button secondary small" disabled>Next</button></div></div></div>
+</section>
+<section id="view-tickets" class="view" aria-label="Support board" hidden><div class="section-bar"><div><h2>Support queue</h2><p class="muted">Drag a ticket to change its stage, or open it to edit.</p></div><label>Filter tickets<input type="search" id="ticket-search" placeholder="Search ID or title"></label></div><div id="ticket-board" class="board"></div></section>
+<section id="view-documents" class="view" aria-label="Document library" hidden><div class="two-column"><div class="panel upload-panel"><span class="large-icon" aria-hidden="true">↑</span><h2>Upload a document</h2><p class="muted">CSV, plain text, or PDF · Up to 2 MB</p><div id="upload-zone" class="dropzone"><label for="file-upload">Choose a file or drop it here</label><input id="file-upload" type="file" accept=".csv,.txt,.pdf"></div><p id="upload-status" role="status">Files are stored on the application server.</p><a href="assets/contacts.csv" download="contacts.csv" class="text-link">Download contacts.csv fixture</a></div><div class="panel"><div class="panel-toolbar"><div><h2>Document library</h2><p class="muted">Download the original uploaded bytes</p></div></div><ul id="document-list" class="document-list"></ul></div></div></section>
+<section id="view-approvals" class="view" aria-label="Purchase approval" hidden><div class="two-column"><div class="panel"><div class="panel-toolbar"><div><h2>Supplier portal</h2><p class="muted">Review the purchase order in the embedded portal</p></div><span class="badge">Embedded app</span></div><iframe id="approval-frame" title="Supplier purchase order approval" src="about:blank"></iframe></div><div class="panel note-panel"><h2>Internal handoff</h2><p class="muted">Leave a note for the operations team.</p><ops-note-editor></ops-note-editor><div class="note-actions"><span id="note-status" role="status">No unsaved changes</span><button id="save-note" class="button" disabled>Save note</button></div></div></div></section>
+<section id="view-results" class="view" aria-label="Run results" hidden><div class="section-bar"><div><h2>Workflow evidence</h2><p class="muted">Local drill outcomes and workflow evidence for this run.</p></div><a id="export-results" class="button" href="/api/export" download>Export evidence</a></div><div id="result-list" class="result-grid"></div><div class="notice">Training drill results come from page interactions; workflow results come from application state. Neither identifies which tool performed the actions. Keep AXIS traces with the report. Local drill results reset on page reload.</div><div class="panel"><div class="panel-toolbar"><div><h2>Activity log</h2><p id="run-id" class="muted"></p></div><button id="refresh-results" class="button secondary small">Refresh results</button></div><ol id="activity-log" class="activity-log"></ol></div></section>
+</main><footer class="workspace-footer"><span>AXIS Training Ground</span><span>HTTP API · SQLite · Native browser controls</span></footer>
+</div></div>
+<div id="toast" class="toast" role="status" hidden></div>
+<dialog id="customer-dialog" aria-labelledby="customer-dialog-title"><form id="customer-form"><div class="dialog-heading"><div><p class="eyebrow">CUSTOMER ACCOUNT</p><h2 id="customer-dialog-title">Edit customer</h2></div><button type="button" class="icon-button" data-close-dialog aria-label="Close customer dialog">×</button></div><div class="form-grid"><label>Name<input name="name" required maxlength="100" autocomplete="name"></label><label>Email<input name="email" type="email" required maxlength="200" autocomplete="email"></label><label class="full-width">Company<input name="company" required maxlength="100" autocomplete="organization"></label><label>Plan<select name="plan"><option>Starter</option><option>Team</option><option>Business</option></select></label><label>Status<select name="status"><option>Active</option><option>Paused</option></select></label></div><p class="form-error" role="alert" hidden></p><div class="dialog-footer"><button type="button" class="button secondary" data-close-dialog>Cancel</button><button type="submit" class="button">Save customer</button></div></form></dialog>
+<dialog id="ticket-dialog" aria-labelledby="ticket-dialog-title"><form id="ticket-form"><div class="dialog-heading"><div><p class="eyebrow" id="ticket-id"></p><h2 id="ticket-dialog-title">Edit ticket</h2></div><button type="button" class="icon-button" data-close-dialog aria-label="Close ticket dialog">×</button></div><div class="form-grid"><label class="full-width">Title<input name="title" required maxlength="200"></label><label>Priority<select name="priority"><option>Low</option><option>Medium</option><option>High</option></select></label><label>Status<select name="status"><option>Backlog</option><option>In progress</option><option>Done</option></select></label><label class="full-width">Assignee<select name="assignee"><option>Unassigned</option><option>Maya Chen</option><option>Alex Morgan</option></select></label></div><p class="form-error" role="alert" hidden></p><div class="dialog-footer"><button type="button" class="button secondary" data-close-dialog>Cancel</button><button type="submit" class="button">Save ticket</button></div></form></dialog>
+<dialog id="reset-dialog" aria-labelledby="reset-title"><div class="dialog-heading"><h2 id="reset-title">Start a fresh run?</h2></div><p>This resets the lab’s customer records, tickets, uploaded documents, approval, note, and activity log.</p><p>Export your evidence first if you need to keep this run.</p><p class="form-error" role="alert" hidden></p><div class="dialog-footer"><button class="button secondary" data-close-dialog>Cancel</button><button id="confirm-reset" class="button danger">Reset lab data</button></div></dialog>
+</body></html>

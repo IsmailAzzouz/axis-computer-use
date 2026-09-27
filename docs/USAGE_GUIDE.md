@@ -1,237 +1,81 @@
-# AXIS Computer Use Suite (`axis-computer-use` / `cu_suite`) Practical Usage Guide
+# AXIS usage guide
 
-This guide provides practical workflows, code snippets, and best practices for automating desktop applications and web browsers across platforms using **AXIS** (`axis-computer-use` / `cu_suite`).
+This guide uses distribution **0.1.0 alpha** and API contract **2.0**. AXIS
+requires a resident authorized host for desktop operations. The examples use
+Windows PowerShell and Notepad; replace the application with one explicitly
+allowed by the operator.
 
-> *"Action is the Evidence."*
+## 1. Install and start the host
 
----
-
-## 1. Installation & Environment Setup
-
-### Install from GitHub
-```bash
-# Clone the repository
-git clone https://github.com/IsmailAzzouz/axis-computer-use.git
-cd axis-computer-use
-
-# Install core package in editable mode
-pip install -e .
+```powershell
+python -m pip install "axis-computer-use[windows] @ https://github.com/IsmailAzzouz/axis-computer-use/releases/download/v0.1.0/axis_computer_use-0.1.0-py3-none-any.whl"
+$env:AXIS_TOKEN = [guid]::NewGuid().ToString('N') + [guid]::NewGuid().ToString('N')
+axis serve --journal axis-v2.sqlite3 --allow-app notepad
 ```
 
-### Windows Prerequisites
-```bash
-pip install -e .[windows]
-```
-*Note: Ensure your Python terminal is running in the interactive desktop session (Session 1). If controlling applications running with Administrator privileges, launch the terminal as Administrator to satisfy Windows UIPI (User Interface Privilege Isolation).*
+This installs the wheel attached to the [v0.1.0 GitHub release](https://github.com/IsmailAzzouz/axis-computer-use/releases/tag/v0.1.0), including its Windows extra.
 
-### macOS Prerequisites
-```bash
-pip install -e .[macos]
-```
-*Note: Ensure Terminal / Python has been granted `Accessibility` and `Screen Recording` permissions in **System Settings → Privacy & Security**.*
+Keep the host running. Start an MCP client adapter in another process with the
+same environment:
 
-### Linux Prerequisites
-```bash
-sudo apt-get install wmctrl xdotool xclip
-pip install -e .[linux]
+```powershell
+axis-mcp --port 8769
 ```
 
----
+For source checkout installation, Codex configuration, and standalone MCP mode,
+see [migration and setup](AXIS_V2_MIGRATION.md). Do not expose the token in
+model-visible messages or request data.
 
-## 2. Quickstart: The 30-Second Example
+## 2. Discover and observe
 
-```python
-from cu_suite import ComputerUseSuite
+The MCP interface has six tools: `axis.help`, `axis.targets`, `axis.observe`,
+`axis.run`, `axis.job`, and `axis.capture`. Begin with `axis.help({})`, then use
+`axis.targets({})` to select an authorized `target_id`. Observe it:
 
-# Initialize AXIS with human-like kinematics enabled
-suite = ComputerUseSuite(human_mode=True)
-
-# 1. Discover and focus an application window
-win = suite.focus_window("Brave")
-print(f"Focused: {win.title} (HWND: {win.handle})")
-
-# 2. Inspect the UI tree
-tree_text = suite.inspect()
-print(tree_text)
-
-# 3. Click an interactive element by ID
-res = suite.click_id(4)
-print(f"Click status: {res.success}")
+```json
+{"target_id":"TARGET_ID"}
 ```
 
----
+The `axis.observe` response supplies a `session_id` and current element data.
+Use observed names or references and check host capabilities before planning.
 
-## 3. Core Workflows
+## 3. Submit one plan
 
-### A. Window Management
-```python
-from cu_suite import ComputerUseSuite
+Place each action in an ordered `steps` array. This example types into a uniquely
+matching edit control and asks AXIS to verify its value:
 
-suite = ComputerUseSuite()
-
-# List all visible windows
-windows = suite.list_windows()
-for w in windows:
-    active_flag = " [ACTIVE]" if w.is_active else ""
-    print(f"[{w.handle}] \"{w.title}\" PID={w.process_id}{active_flag}")
-
-# Find by substring or regex
-chrome_win = suite.focus_window("Google Chrome")
-discord_win = suite.focus_window("Discord.*general", regex=True)
+```json
+{
+  "session_id": "SESSION_FROM_OBSERVE",
+  "idempotency_key": "type-note-001",
+  "steps": [
+    {"id":"focus","op":"focus"},
+    {
+      "id":"write",
+      "op":"type_text",
+      "args":{"at":{"selector":{"role":"Edit","name":"Input"}},"text":"Hello","replace":true},
+      "postcondition":{"kind":"value","selector":{"role":"Edit","name":"Input"},"expected":"Hello"}
+    },
+    {"id":"read","op":"observe","args":{"query":{"role":"Edit"}}}
+  ]
+}
 ```
 
----
+Send this as one `axis.run` request. Replace the session and selector with values
+from the current observation. Get exact operation arguments with
+`axis.help({"action":"type_text"})`. Use a fresh idempotency key for each new
+plan; retain the original request and key for recovery.
 
-### B. Browser Navigation & Web DOM Piercing
-Chromium-based browsers (Brave, Chrome, Edge) nest web contents under deep native view layers. `cu_suite` automatically fast-paths to the active web DOM (`AutomationId="RootWebArea"`), filtering out hundreds of window frame buttons.
+## 4. Check results and recover carefully
 
-```python
-from cu_suite import ComputerUseSuite
+Inspect every step's `verification`, the overall status, and
+`effects_verified`. A `dispatch_only` step is explicitly unverified. For a
+running job, query `axis.job` by its `job_id`. If a response is lost or the
+outcome is unknown, query by the original `idempotency_key` before submitting
+anything else. Never treat a timeout or cancellation as proof that no effect
+occurred.
 
-suite = ComputerUseSuite()
-suite.focus_window("Brave")
-
-# Navigates address bar (Ctrl+L on Win/Linux, Cmd+L on macOS) and waits for load
-suite.navigate_browser("https://home.azzouz.be", wait_seconds=3.0)
-
-# Inspect directly returns web DOM nodes
-print(suite.inspect())
-```
-
-Example Output:
-```yaml
-=== Active Window: Toolbox - Brave (12 elements) ===
-  [1] Document "Toolbox" val="https://home.azzouz.be/" bbox=(955,116,957x908) [FOCUSED]
-  [2] Button "Proxmox" bbox=(1012,310,180x90)
-  [3] Button "Jellyfin" bbox=(1220,310,180x90)
-  [4] Button "Torrent" bbox=(1436,437,180x90)
-```
-
----
-
-### C. Safe Text Typing (Anti-AZERTY & Anti-Bot)
-
-International keyboard layouts (e.g., Belgian/French AZERTY) corrupt standard scan codes (e.g. `:` becoming `shift+/`, `@` requiring `AltGr`). Furthermore, anti-bot forms frequently block clipboard paste (`onpaste="return false;"`).
-
-`cu_suite` handles this transparently:
-
-```python
-from cu_suite import ComputerUseSuite
-
-suite = ComputerUseSuite()
-
-# 1. Standard Safe Input (Clipboard-based, bypasses layout corruption)
-suite.input.paste_text("https://subdomain.example.com/login?token=abc")
-
-# 2. Virtual Keystroke Fallback (When onpaste is blocked by anti-bot scripts)
-# Clicks the field and types character-by-character with natural timing jitter
-suite.click_id(6)
-import pyautogui
-pyautogui.write("my_secret_token", interval=0.08)
-```
-
----
-
-### D. Browser Password Autofill Resolution
-
-When opening a login page with saved browser credentials, clicking the username field triggers a floating browser popup. Blindly pressing Enter submits blank fields. Use `login_with_autofill`:
-
-```python
-from cu_suite import ComputerUseSuite
-
-suite = ComputerUseSuite()
-suite.focus_window("qBittorrent")
-
-# Triggers credential popup on username box, selects account index 1 (admin), and submits
-res = suite.login_with_autofill(
-    rel_trigger_coord=(486, 347),  # Username field relative to window
-    credential_index=1,           # 1 for first saved credential
-    rel_submit_coord=(486, 445),   # Login button relative to window
-    wait_seconds=3.0
-)
-print("Autofill login result:", res.success)
-```
-
----
-
-### E. Anti-Bot Kinematics & Humanized Clicking
-
-Automated coordinate jumps in 0ms trigger velocity/acceleration checks on modern anti-bot systems (e.g., Turnstile, reCAPTCHA, CAPTCHA games).
-
-Enable `human_mode=True` to route clicks through the cubic Bézier trajectory engine:
-
-```python
-from cu_suite import ComputerUseSuite
-
-suite = ComputerUseSuite(human_mode=True)
-
-# 1. Humanized click on an element by ID
-# Generates curved path, adds ±2px jitter, hovers 60-140ms, holds mouse down 45-95ms
-suite.click_id(3)
-
-# 2. Humanized coordinate click
-suite.input.click_at(1307, 588)
-
-# 3. Custom path control
-from cu_suite.human_kinematics import HumanKinematics
-kinematics = HumanKinematics()
-kinematics.move_to(1200, 600, duration_range=(0.3, 0.5))
-```
-
----
-
-### F. Targeted Visual Snapshots & Change Detection
-
-Avoid sending full-screen 4K/1080p images to vision models when only a small window or region changed:
-
-```python
-from cu_suite import ComputerUseSuite
-
-suite = ComputerUseSuite()
-win = suite.focus_window("World's Hardest CAPTCHA")
-
-# Saves cropped window bounds instead of full desktop
-suite.capture_snapshot("active_window.png")
-
-# Change detection comparison
-current_img = suite.visual.capture_fullscreen()
-if suite.visual.has_screen_changed(current_img):
-    print("Screen state changed - invoking visual inspection")
-else:
-    print("Screen state unchanged - skipping vision call")
-```
-
----
-
-### G. Cross-Platform Runtime Testing
-
-You can instantiate specific platform backends on any host for development and testing:
-
-```python
-from cu_suite import ComputerUseSuite, PlatformType
-
-# Force macOS backend
-suite_mac = ComputerUseSuite(platform_override=PlatformType.MACOS)
-print("Mac address bar hotkey:", suite_mac.platform)
-
-# Force Linux backend
-suite_linux = ComputerUseSuite(platform_override=PlatformType.LINUX)
-print("Linux window manager:", type(suite_linux.wm))
-```
-
----
-
-## 4. Standalone CLI Usage
-
-The suite includes an interactive command-line interface (`axis` or `foundry-cu`):
-
-```bash
-# List all desktop windows
-axis list-windows
-
-# Inspect UI tree of a specific window
-axis inspect --window "Brave"
-
-# Navigate a browser window to a URL
-axis navigate "https://home.azzouz.be" --window "Brave"
-```
+Use `axis.capture` only when semantic observation is insufficient. An image or
+successful tool listing does not certify the action effect or native behavior.
+For detailed limits and qualification status, see the
+[V2 API](AXIS_V2_API.md) and [qualification record](AXIS_V2_QUALIFICATION.md).

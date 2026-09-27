@@ -1,182 +1,77 @@
-<p align="center">
-  <img src="assets/header.svg" width="100%" alt="AXIS // Sovereign Computer Use Engine">
-</p>
+# AXIS Computer Use
 
-<p align="center">
-  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
-  <a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3.10%2B-blue.svg" alt="Python 3.10+"></a>
-  <a href="#"><img src="https://img.shields.io/badge/tests-20%2F20%20passing-brightgreen.svg" alt="Test Suite"></a>
-  <a href="#"><img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg" alt="Platform Support"></a>
-  <a href="#"><img src="https://img.shields.io/badge/system-Monarch%20%2F%20Foundry-white.svg" alt="Monarch System"></a>
-</p>
+AXIS is a Windows-first computer-use runtime exposed through MCP and a Python
+client. Its public interface is the V2 contract: distribution version **0.1.0
+alpha**, API contract version **2.0**. Native desktop and model qualification is
+still in progress; this release is not certified for general use.
 
-<p align="center">
-  <strong>AXIS</strong> is a modular, high-reliability, semantic accessibility-first Computer Use engine designed for autonomous AI agents.<br>
-  <em>"Action is the Evidence."</em>
-</p>
+## Install
 
----
-
-## ⚡ The Philosophy
-
-> **Monarch:** *Sovereignty is Paramount.*  
-> **Foundry:** *Verification is the Contract.*  
-> **Axis:** *Action is the Evidence.*
-
-Most Computer Use solutions treat desktop interaction like video analysis: they capture full-screen raster images, pass multi-megabyte payloads to multimodal vision models, and make probabilistic guesses at pixel coordinates. When tested against real-world enterprise environments, international keyboard layouts, or dynamic interfaces, this model breaks down through high token latency, scan-code corruption, and anti-bot trips.
-
-**AXIS** inverts the paradigm:
-* **The System belongs to the User.** Automation should be sovereign, transparent, and reproducible without closed cloud dependencies.
-* **The Interface is the Territory.** Rather than guessing pixels from a distance, AXIS queries the native operating system Accessibility Tree (UIA v3, AXUIElement, AT-SPI2).
-* **Action Leaves Proof.** Real actions produce deterministic state transitions. Every interaction is grounded in verifiable DOM and OS handles.
-
----
-
-## 🛡️ Core Capabilities
-
-| Vision-Only Fragility | AXIS Engineering Solution |
-| :--- | :--- |
-| **Token Bloat & Latency** (Sending 4K/1080p images on every step) | **Semantic A11y Tree:** Traverses native OS accessibility trees, pruning non-interactive noise into a token-efficient indexed schema (`[1]`, `[2]`, `[3]`). |
-| **Chromium Nesting Chasm** (Browsers hiding web DOM behind 300+ chrome buttons) | **RootWebArea Fast-Path:** Automatically detects and pierces through browser chrome straight into the active web page DOM on Chrome, Brave, and Edge. |
-| **Bot Detection & CAPTCHA Failures** (Instant 0ms cursor teleportation) | **Humanized Kinematics:** Smooth cubic Bézier trajectories, minimum-jerk acceleration curves, micro-tremor jitter, and realistic pre-click dwell times. |
-| **Keyboard Layout Corruption** (French/Belgian AZERTY typing `:` as `Shift+/`) | **Layout-Safe Paste:** Defaults to system clipboard injection, with automatic virtual keystroke fallback when forms block paste (`onpaste="return false;"`). |
-| **Browser Password Popups** (Submitting blank fields on autofill forms) | **Autofill Resolution Engine:** Automatically detects and navigates browser floating credential menus to select and submit saved accounts. |
-| **Platform Lock-In** (Hardcoded OS APIs) | **Platform Abstraction Layer (PAL):** Unified abstract interfaces (`IWindowManager`, `ITreeInspector`, `IInputController`, `IVisualFallback`) across Windows, macOS, and Linux. |
-
----
-
-## 📁 Repository Architecture
-
-```text
-axis-computer-use/
-├── assets/
-│   └── header.svg              # Monarch/Foundry design system SVG header
-├── cu_suite/                   # Core Python Package (AXIS Engine)
-│   ├── models.py               # Normalized data structures (WindowInfo, UIElement, BoundingBox)
-│   ├── interfaces.py           # Abstract Base Classes (IWindowManager, ITreeInspector, etc.)
-│   ├── agent_facade.py         # High-level ComputerUseSuite orchestrator
-│   ├── human_kinematics.py     # Bézier trajectory and anti-bot motor engine
-│   ├── autofill.py             # Browser password popup resolution
-│   ├── platforms/              # Platform Abstraction Layer (PAL)
-│   │   ├── windows/            # Win32 + UI Automation v3 implementation
-│   │   ├── macos/              # Quartz + AXUIElement implementation
-│   │   └── linux/              # X11/EWMH + AT-SPI2 implementation
-│   └── cli.py                  # Standalone CLI interface
-├── docs/
-│   ├── API_REFERENCE.md        # Comprehensive technical API documentation
-│   └── USAGE_GUIDE.md          # Step-by-step developer manual & workflows
-├── tests/                      # Full unit and integration test suite (20 tests)
-├── .agents/skills/             # Pre-packaged Agent Skill
-├── pyproject.toml              # Standard PEP 517/621 packaging metadata
-├── ROADMAP.md                  # Development phases & multi-OS testing pipeline
-├── CONTRIBUTING.md             # Guidelines for open-source contributors
-└── LICENSE                     # MIT License
+```powershell
+python -m pip install "axis-computer-use[windows] @ https://github.com/IsmailAzzouz/axis-computer-use/releases/download/v0.1.0/axis_computer_use-0.1.0-py3-none-any.whl"
 ```
 
----
+This installs the wheel attached to the [v0.1.0 GitHub release](https://github.com/IsmailAzzouz/axis-computer-use/releases/tag/v0.1.0), including its Windows extra.
 
-## 🚀 Quickstart
+Create a random host token and start the resident host with only the applications
+you intend to authorize:
 
-### 1. Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/IsmailAzzouz/axis-computer-use.git
-cd axis-computer-use
-
-# Install in editable mode
-pip install -e .
-
-# Platform-specific extras:
-pip install -e .[windows]   # Windows (uiautomation, pywin32, comtypes)
-pip install -e .[macos]     # macOS (pyobjc Quartz & ApplicationServices)
-pip install -e .[linux]     # Linux (python-xlib, wmctrl, at-spi2)
+```powershell
+$env:AXIS_TOKEN = [guid]::NewGuid().ToString('N') + [guid]::NewGuid().ToString('N')
+axis serve --journal axis-v2.sqlite3 --allow-app notepad
 ```
 
-### 2. 30-Second Python Example
+In another process that inherits `AXIS_TOKEN`, start the MCP adapter:
+
+```powershell
+axis-mcp --port 8769
+```
+
+The host owns application permissions and runtime state. Installing AXIS does not
+authorize applications. Keep the token out of prompts, request JSON, and source
+control. See [client setup and migration](docs/AXIS_V2_MIGRATION.md) for checkout,
+SDK, and MCP client configuration.
+
+## Six MCP tools
+
+Start with `axis.help({})`. The six public tools are:
+
+| Tool | Purpose |
+| --- | --- |
+| `axis.help` | Offline guide and copyable request examples |
+| `axis.targets` | List authorized desktop targets |
+| `axis.observe` | Read target state and available capabilities |
+| `axis.run` | Submit an ordered action plan |
+| `axis.job` | Read, recover, or cancel a submitted job |
+| `axis.capture` | Request a targeted image when observation text is insufficient |
+
+Actions such as click and text entry are steps inside `axis.run`; they are not
+individual MCP tools. Check `axis.observe` capabilities and `axis.help` for the
+current action arguments. A dispatched action is not necessarily a verified
+effect: inspect step verification and resulting UI state. For uncertain or lost
+responses, recover with the original idempotency key before submitting new work.
+
+## Python client
 
 ```python
-from cu_suite import ComputerUseSuite
+import os
+from cu_suite import AxisClient
 
-# Initialize suite with anti-bot kinematics enabled
-suite = ComputerUseSuite(human_mode=True)
-
-# 1. Discover and focus an application window
-win = suite.focus_window("Brave")
-print(f"Focused: {win.title} (HWND: {win.handle})")
-
-# 2. Navigate browser using cross-platform key translation
-suite.navigate_browser("https://home.azzouz.be")
-
-# 3. Inspect active UI elements (pierces directly into web DOM)
-print(suite.inspect())
-
-# 4. Click an element by its indexed ID
-suite.click_id(4)
-
-# 5. Targeted visual snapshot
-suite.capture_snapshot("result.png")
+client = AxisClient(token=os.environ["AXIS_TOKEN"])
+print(client.targets())
 ```
 
----
+The client connects to the resident host on loopback port 8769 by default.
+Observe a target to obtain a session, then submit a plan with a fresh
+`idempotency_key`; see the [usage guide](docs/USAGE_GUIDE.md).
 
-## 🖥️ Command-Line Interface (CLI)
+## Scope and qualification
 
-```bash
-# List all desktop application windows
-axis list-windows
+This alpha targets Windows. macOS/Linux support and complete native desktop and
+model qualification are not established. Simulated tests and tool discovery do
+not certify behavior in Excel, Edge, or other live applications. See the
+[qualification record](docs/AXIS_V2_QUALIFICATION.md) for evidence and open work.
 
-# Inspect the accessibility tree of a window
-axis inspect --window "Brave"
+## License
 
-# Navigate an active browser window
-axis navigate "https://example.com" --window "Brave"
-```
-
----
-
-## 🧪 Testing & Verification
-
-Run the comprehensive 20-test test suite covering models, kinematics, window managers, visual diffing, and cross-platform abstractions:
-
-```bash
-python -m unittest discover -s tests -v
-```
-
-All 20 unit and integration tests execute in < 5 seconds with 0 failures.
-
----
-
-## 🗺️ Roadmap & Platform Testing
-
-Development and validation are organized into distinct phases:
-
-* **Phase 1 (Completed):** Core engine, Windows UIA v3 hardening, Bézier kinematics, anti-paste fallback, autofill handler, and Platform Abstraction Layer.
-* **Phase 2 (In Progress):** Physical device verification on **macOS** (Retina scaling, TCC Accessibility permissions) and **Linux** (GNOME/KDE AT-SPI2, Wayland portals).
-* **Phase 3 (Planned):** Native Chrome DevTools Protocol (CDP) WebSocket bridge and companion browser extension.
-* **Phase 4 (Planned):** Dynamic Web Audio API frequency interception and 60 FPS GPU frame grabbing for games.
-* **Phase 5 (Planned):** Model Context Protocol (MCP) server packaging and LangChain/AutoGen tool connectors.
-
-See [ROADMAP.md](ROADMAP.md) for full details.
-
----
-
-## 🏛️ Co-Authored by Azzouz Ismail & Foundry
-
-> *"Verification is the Contract."*  
-> — Monarch System Principles
-
-This repository was conceptualized and developed jointly by **Foundry** (an autonomous sovereign engineering agent) and **Azzouz Ismail** ([Monarch](https://github.com/IsmailAzzouz)).
-
-### About Foundry
-Foundry is not a chatbot with repository access—it is an engineering operator. Built on the sovereign Monarch architecture, Foundry is designed to enter live codebases, inspect real state through empirical evidence, make precise and coherent interventions, and prove that every change works against project checks before claiming success.
-
-Foundry operates under a strict principle:
-**The system belongs to the user. The evidence belongs to the work. The claim of success must be earned.**
-
----
-
-## 📄 License
-
-This project is open-source software licensed under the [MIT License](LICENSE).  
-Copyright (c) 2026 Azzouz Ismail & Foundry Agent.
+MIT. See [LICENSE](LICENSE).

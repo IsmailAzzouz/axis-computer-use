@@ -1,0 +1,27 @@
+.captcha-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;align-items:start}
+.captcha-card{min-width:0;padding:24px;background:#fff;border:1px solid var(--border,#e2e8ed);border-radius:11px}
+.captcha-card-heading{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.captcha-number{display:grid;place-items:center;width:35px;height:35px;flex-shrink:0;background:#edf7f4;color:#277d6d;border:1px solid #d3e7df;border-radius:8px;font-size:11px}
+.captcha-kind{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#738982;margin:0 0 3px}
+.captcha-card h2{font-size:16px;margin:0}
+.captcha-instructions{font-size:12px;color:var(--muted,#657787);min-height:40px;margin-bottom:18px}
+.captcha-exercise{display:grid;gap:16px}
+.captcha-exercise canvas{display:block;max-width:100%;height:auto}
+.captcha-wide-canvas,.captcha-text-canvas{width:100%;border:1px solid #cbdbd7;border-radius:8px;background:#eaf2ec}
+.captcha-wide-canvas{touch-action:none;cursor:grab}
+.captcha-wide-canvas:active{cursor:grabbing}
+.captcha-exercise input[type=range]{width:100%;min-height:40px;padding:0;accent-color:var(--accent,#0e776e);cursor:ew-resize;background:transparent;border:0}
+.captcha-exercise input[type=text]{letter-spacing:2px;font-size:16px}
+.captcha-exercise input[type=text]::placeholder{letter-spacing:0;font-size:12px}
+.captcha-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:19px}
+.captcha-feedback{min-height:38px;margin:13px 0 0;font-size:12px;line-height:1.6;color:var(--muted,#657787)}
+.captcha-feedback.passed{color:#207149}.captcha-feedback.failed{color:#a23e37}
+.captcha-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.captcha-tile{position:relative;display:block;min-width:0;overflow:hidden;padding:0;border:3px solid #edf1f3;border-radius:7px;background:#edf1f3}
+.captcha-tile canvas{width:100%}
+.captcha-tile[aria-pressed=true]{border-color:#0e776e;box-shadow:0 0 0 1px #0e776e}
+.captcha-tile[aria-pressed=true]::after{content:'✓';position:absolute;right:5px;top:5px;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#0e776e;color:white;font-size:15px;font-weight:700}
+.captcha-tile-number{position:absolute;bottom:4px;left:4px;display:grid;place-items:center;min-width:20px;height:20px;background:#163840d9;border-radius:4px;color:white;font-size:10px}
+.captcha-rotation-canvas{width:260px;justify-self:center;border-radius:50%}
+@media(max-width:1050px){.captcha-grid{grid-template-columns:1fr}.captcha-instructions{min-height:0}}
+@media(max-width:480px){.captcha-card{padding:17px}.captcha-grid{gap:16px}.captcha-tiles{gap:4px}.captcha-tile{border-width:2px}.captcha-card h2{font-size:15px}}

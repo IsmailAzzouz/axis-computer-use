@@ -1,0 +1,41 @@
+name: V2 checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        python: ['3.10', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install
+        run: python -m pip install -e '.[windows,dev]'
+      - name: Unit and transport tests (no desktop input)
+        run: python -m pytest -q
+      - name: Validate public schemas
+        run: python -m tests.v2.schema_smoke
+      - name: Build distributions
+        run: python -m build
+      - name: Check distribution metadata
+        run: python -m twine check dist/*
+      - name: Installed wheel smoke
+        shell: pwsh
+        run: |
+          python -m venv output/wheel-env
+          $wheel = (Get-ChildItem dist/*.whl).FullName
+          & output/wheel-env/Scripts/python.exe -m pip install $wheel
+          python -m tests.v2.installed_mcp_smoke --python output/wheel-env/Scripts/python.exe
+      - uses: actions/upload-artifact@v4
+        with:
+          name: distributions-py${{ matrix.python }}
+          path: dist/*

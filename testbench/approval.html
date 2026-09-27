@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Purchase order approval</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    body.approval-page { display: block; min-height: 0; padding: 24px; background: #fff; color: #0f172a; font: 15px/1.5 system-ui, sans-serif; }
+    .approval-page main { padding: 0; margin: 0; max-width: none; }
+    .approval-page h1 { margin: 0 0 4px; font-size: 21px; }
+    .approval-page .description { margin: 0 0 18px; color: #475569; }
+    .approval-page dl { display: grid; grid-template-columns: minmax(90px, 1fr) 2fr; gap: 8px 16px; margin: 0 0 20px; }
+    .approval-page dt { color: #475569; }
+    .approval-page dd { margin: 0; font-weight: 600; }
+    .approval-page fieldset { min-width: 0; border: 0; padding: 0; margin: 0; }
+    .approval-page .confirmation { display: flex; flex-direction: row; align-items: flex-start; gap: 10px; margin-bottom: 16px; cursor: pointer; font-size: 14px; font-weight: 400; }
+    .approval-page input[type="checkbox"] { flex: 0 0 auto; width: 18px; height: 18px; min-height: 18px; padding: 0; margin: 2px 0 0; accent-color: #0f766e; }
+    .approval-page button { min-height: 42px; padding: 9px 15px; border: 1px solid #0f766e; border-radius: 7px; background: #0f766e; color: #fff; cursor: pointer; font: inherit; font-weight: 600; }
+    .approval-page button:disabled { opacity: .6; cursor: default; }
+    .approval-page :focus-visible { outline: 3px solid #0d9488; outline-offset: 3px; }
+    .approval-page .status { margin: 14px 0 0; color: #475569; min-height: 23px; }
+    .approval-page .error { margin: 12px 0; color: #b91c1c; }
+    .approval-page [hidden] { display: none !important; }
+  </style>
+  <script type="module" src="/js/approval.js"></script>
+</head>
+<body class="approval-page">
+  <main aria-labelledby="approval-title">
+    <h1 id="approval-title">Purchase order approval</h1>
+    <p class="description">Review the order before authorizing the purchase.</p>
+    <dl>
+      <dt>Order</dt><dd id="order-reference">PO-1042</dd>
+      <dt>Supplier</dt><dd id="order-supplier">Northstar Supplies</dd>
+      <dt>Total</dt><dd id="order-amount">EUR 1,250.00</dd>
+      <dt>Status</dt><dd id="order-status">Loading…</dd>
+    </dl>
+    <form id="approval-form">
+      <fieldset id="approval-controls" disabled>
+        <label class="confirmation" for="confirm-approval">
+          <input id="confirm-approval" name="confirmation" type="checkbox" required>
+          <span>I reviewed the purchase order</span>
+        </label>
+        <button id="approve-order" type="submit">Approve purchase order</button>
+      </fieldset>
+    </form>
+    <p id="approval-error" class="error" role="alert" hidden></p>
+    <button id="retry-approval" type="button" hidden>Retry loading order</button>
+    <p id="approval-status" class="status" role="status" aria-live="polite">Loading purchase order…</p>
+  </main>
+</body>
+</html>

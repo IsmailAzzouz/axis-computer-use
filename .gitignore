@@ -32,6 +32,7 @@ MANIFEST
 # Virtual environments
 .env
 .venv
+.venv-axis/
 env/
 venv/
 ENV/
@@ -52,6 +53,11 @@ coverage.xml
 .pytest_cache/
 
 # Screenshots, recordings, and media artifacts
+# Temporary browser profiles may contain automatically provisioned account data.
+/output/**/profile/
+/output/**/guest-profile/
+/testbench/.browser-test/
+/testbench/.data/
 *.png
 *.jpg
 *.jpeg
@@ -75,3 +81,8 @@ Desktop.ini
 .idea/
 *.sublime-project
 *.sublime-workspace
+/output
+/axis-v2.sqlite3
+/axis-v2.sqlite3-*
+/.npm-cache/
+.env.*
