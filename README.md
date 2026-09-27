@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/header.svg" width="100%" alt="AXIS — a monochrome technical header with a fine grid, framed hexagonal reticle, the motto ‘Action is the evidence,’ and verification-focused labels." />
+</p>
+
 # AXIS Computer Use
 
 AXIS is a Windows-first computer-use runtime exposed through MCP and a Python
